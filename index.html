@@ -90,6 +90,55 @@
       <canvas id="chart" width="900" height="360"></canvas>
       <p class="disclaimer">This is a simplified projection for educational purposes only, not financial advice. Actual returns, inflation, and expenses will vary.</p>
     </section>
+
+    <section class="card">
+      <h2>Monte Carlo Simulation</h2>
+      <p class="section-note">Returns and inflation rarely land exactly on their average every year. Add a standard deviation to each and this runs many randomized versions of the projection above to show a range of outcomes instead of one straight line.</p>
+      <form id="mc-form">
+        <div class="grid">
+          <div class="field">
+            <label for="preReturnStdDev">Pre-retirement return std. dev (%/yr)</label>
+            <input type="number" id="preReturnStdDev" value="8" min="0" max="30" step="0.5">
+          </div>
+          <div class="field">
+            <label for="postReturnStdDev">Post-retirement return std. dev (%/yr)</label>
+            <input type="number" id="postReturnStdDev" value="5" min="0" max="30" step="0.5">
+          </div>
+          <div class="field">
+            <label for="inflationStdDev">Inflation std. dev (%/yr)</label>
+            <input type="number" id="inflationStdDev" value="1" min="0" max="10" step="0.1">
+          </div>
+          <div class="field">
+            <label for="numSimulations">Number of simulations</label>
+            <input type="number" id="numSimulations" value="1000" min="100" max="5000" step="100">
+          </div>
+        </div>
+        <button type="submit">Run Monte Carlo Simulation</button>
+      </form>
+
+      <div id="mc-results" class="hidden">
+        <div class="stat-grid">
+          <div class="stat">
+            <span class="stat-label">Probability savings last through life expectancy</span>
+            <span class="stat-value" id="mcSuccessRate">0%</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Median balance at life expectancy</span>
+            <span class="stat-value" id="mcMedianEnding">$0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">10th percentile balance at life expectancy</span>
+            <span class="stat-value" id="mcP10Ending">$0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Median depletion age (failed runs)</span>
+            <span class="stat-value" id="mcMedianDepletion">-</span>
+          </div>
+        </div>
+        <canvas id="mcChart" width="900" height="360"></canvas>
+        <p class="disclaimer">Each simulation draws a random annual return and inflation rate (normally distributed around the assumptions above) for every year of the projection. This models sequence-of-returns risk; real markets do not follow a normal distribution, so treat this as a rough sense of variability, not a precise forecast.</p>
+      </div>
+    </section>
   </div>
 
   <div id="tab-pension" class="tab-panel hidden">
