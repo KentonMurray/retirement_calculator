@@ -26,6 +26,17 @@ hosted directly on GitHub Pages.
 - One click sends the estimated pension into the Savings Calculator's
   "other income" field.
 
+**Monte Carlo Simulation** (part of the Savings Calculator)
+- Runs hundreds to thousands of randomized versions of the savings
+  projection, drawing a new annual return/inflation rate from a normal
+  distribution (centered on your assumptions, with a standard deviation
+  you set) each year of each simulation.
+- Reports the probability your savings last through your life expectancy,
+  the median and 10th-percentile ending balance, and the median age
+  savings run out across failed runs.
+- Draws a "fan chart" of the 10th/50th/90th percentile balance over time,
+  so you can see the range of outcomes instead of a single line.
+
 ## Running locally
 
 Just open `index.html` in a browser, or serve the folder with any static
