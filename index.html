@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retirement Calculator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Retirement Calculator</h1>
+    <p class="subtitle">Estimate how your savings will grow, and whether they'll last through retirement.</p>
+  </header>
+
+  <main>
+    <form id="calc-form" class="card">
+      <div class="grid">
+        <div class="field">
+          <label for="currentAge">Current age</label>
+          <input type="number" id="currentAge" value="35" min="0" max="120" step="1" required>
+        </div>
+        <div class="field">
+          <label for="retireAge">Retirement age</label>
+          <input type="number" id="retireAge" value="65" min="0" max="120" step="1" required>
+        </div>
+        <div class="field">
+          <label for="lifeExpectancy">Life expectancy (age)</label>
+          <input type="number" id="lifeExpectancy" value="90" min="0" max="130" step="1" required>
+        </div>
+        <div class="field">
+          <label for="currentSavings">Current savings ($)</label>
+          <input type="number" id="currentSavings" value="50000" min="0" step="100">
+        </div>
+        <div class="field">
+          <label for="monthlyContribution">Monthly contribution ($)</label>
+          <input type="number" id="monthlyContribution" value="500" min="0" step="10">
+        </div>
+        <div class="field">
+          <label for="preReturn">Expected return before retirement (%/yr)</label>
+          <input type="number" id="preReturn" value="7" min="-20" max="30" step="0.1">
+        </div>
+        <div class="field">
+          <label for="postReturn">Expected return during retirement (%/yr)</label>
+          <input type="number" id="postReturn" value="4" min="-20" max="30" step="0.1">
+        </div>
+        <div class="field">
+          <label for="inflation">Inflation rate (%/yr)</label>
+          <input type="number" id="inflation" value="2.5" min="-10" max="20" step="0.1">
+        </div>
+        <div class="field">
+          <label for="desiredIncome">Desired annual retirement income (today's $)</label>
+          <input type="number" id="desiredIncome" value="60000" min="0" step="1000">
+        </div>
+        <div class="field">
+          <label for="otherIncome">Other annual income in retirement (SS/pension, today's $)</label>
+          <input type="number" id="otherIncome" value="20000" min="0" step="500">
+        </div>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+
+    <section id="results" class="card results hidden">
+      <h2>Results</h2>
+      <div class="stat-grid">
+        <div class="stat">
+          <span class="stat-label">Savings at retirement</span>
+          <span class="stat-value" id="statAtRetirement">$0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Total contributed</span>
+          <span class="stat-value" id="statContributed">$0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Annual withdrawal needed</span>
+          <span class="stat-value" id="statWithdrawal">$0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Savings last until age</span>
+          <span class="stat-value" id="statLastsUntil">-</span>
+        </div>
+      </div>
+      <p id="verdict" class="verdict"></p>
+      <canvas id="chart" width="900" height="360"></canvas>
+      <p class="disclaimer">This is a simplified projection for educational purposes only, not financial advice. Actual returns, inflation, and expenses will vary.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built with plain HTML/CSS/JS &middot; runs entirely in your browser, no data leaves your device.</p>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
