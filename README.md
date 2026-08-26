@@ -1,14 +1,14 @@
 # Retirement Calculator
 
-A simple, self-contained retirement savings calculator. It projects how your
-savings will grow before retirement, then simulates drawdown after
-retirement to estimate whether your money will last.
+A simple, self-contained retirement calculator with two tools: a savings
+projector and a defined-benefit pension estimator.
 
 No build step, no dependencies — just static HTML/CSS/JS, so it can be
 hosted directly on GitHub Pages.
 
 ## Features
 
+**Savings Calculator**
 - Projects savings growth from your current age to retirement, using
   monthly contributions and compounding returns.
 - Simulates withdrawals in retirement (adjusted for inflation) against a
@@ -16,6 +16,15 @@ hosted directly on GitHub Pages.
 - Shows total contributed, projected balance at retirement, the age your
   savings are projected to run out (if any), and a chart of your balance
   over time.
+
+**Pension Calculator**
+- Estimates an annual defined-benefit pension as years of service ×
+  accrual rate × final average salary, reduced for starting before your
+  plan's normal retirement age.
+- Shows the estimated annual/monthly pension, the early-retirement
+  reduction applied, and the income replacement ratio.
+- One click sends the estimated pension into the Savings Calculator's
+  "other income" field.
 
 ## Running locally
 
