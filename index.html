@@ -13,7 +13,13 @@
     <p class="subtitle">Estimate how your savings will grow, and whether they'll last through retirement.</p>
   </header>
 
+  <nav class="tabs" role="tablist">
+    <button type="button" class="tab-btn active" id="tabBtnSavings" role="tab" aria-selected="true" aria-controls="tab-savings">Savings Calculator</button>
+    <button type="button" class="tab-btn" id="tabBtnPension" role="tab" aria-selected="false" aria-controls="tab-pension">Pension Calculator</button>
+  </nav>
+
   <main>
+  <div id="tab-savings" class="tab-panel" role="tabpanel" aria-labelledby="tabBtnSavings">
     <form id="calc-form" class="card">
       <div class="grid">
         <div class="field">
@@ -84,6 +90,63 @@
       <canvas id="chart" width="900" height="360"></canvas>
       <p class="disclaimer">This is a simplified projection for educational purposes only, not financial advice. Actual returns, inflation, and expenses will vary.</p>
     </section>
+  </div>
+
+  <div id="tab-pension" class="tab-panel hidden">
+    <form id="pension-form" class="card">
+      <div class="grid">
+        <div class="field">
+          <label for="yearsOfService">Years of service at retirement</label>
+          <input type="number" id="yearsOfService" value="30" min="0" max="70" step="0.5" required>
+        </div>
+        <div class="field">
+          <label for="finalAvgSalary">Final average salary ($)</label>
+          <input type="number" id="finalAvgSalary" value="90000" min="0" step="1000" required>
+        </div>
+        <div class="field">
+          <label for="accrualRate">Accrual rate (% per year of service)</label>
+          <input type="number" id="accrualRate" value="1.5" min="0" max="5" step="0.05" required>
+        </div>
+        <div class="field">
+          <label for="pensionRetireAge">Age you'll start the pension</label>
+          <input type="number" id="pensionRetireAge" value="65" min="0" max="120" step="1" required>
+        </div>
+        <div class="field">
+          <label for="normalRetireAge">Normal (unreduced) retirement age</label>
+          <input type="number" id="normalRetireAge" value="65" min="0" max="120" step="1" required>
+        </div>
+        <div class="field">
+          <label for="earlyReduction">Early retirement reduction (% per year early)</label>
+          <input type="number" id="earlyReduction" value="5" min="0" max="20" step="0.5" required>
+        </div>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+
+    <section id="pension-results" class="card results hidden">
+      <h2>Results</h2>
+      <div class="stat-grid">
+        <div class="stat">
+          <span class="stat-label">Estimated annual pension</span>
+          <span class="stat-value" id="pensionAnnual">$0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Estimated monthly pension</span>
+          <span class="stat-value" id="pensionMonthly">$0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Early retirement reduction applied</span>
+          <span class="stat-value" id="pensionReduction">0%</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Income replacement ratio</span>
+          <span class="stat-value" id="pensionReplacement">0%</span>
+        </div>
+      </div>
+      <button type="button" id="usePensionBtn" class="secondary-btn">Use this as "other income" in the Savings Calculator</button>
+      <p class="disclaimer">This estimates a typical defined-benefit pension as: years of service &times; accrual rate &times; final average salary, reduced for starting before your plan's normal retirement age. Actual pension formulas vary by plan &mdash; check your plan documents for exact terms.</p>
+    </section>
+  </div>
   </main>
 
   <footer>

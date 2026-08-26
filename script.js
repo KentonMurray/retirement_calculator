@@ -204,3 +204,73 @@ window.addEventListener('resize', () => {
     form.requestSubmit();
   }
 });
+
+// --- Tabs ---
+
+const tabBtnSavings = document.getElementById('tabBtnSavings');
+const tabBtnPension = document.getElementById('tabBtnPension');
+const tabSavings = document.getElementById('tab-savings');
+const tabPension = document.getElementById('tab-pension');
+
+function showTab(name) {
+  const showSavings = name === 'savings';
+  tabSavings.classList.toggle('hidden', !showSavings);
+  tabPension.classList.toggle('hidden', showSavings);
+  tabBtnSavings.classList.toggle('active', showSavings);
+  tabBtnPension.classList.toggle('active', !showSavings);
+  tabBtnSavings.setAttribute('aria-selected', String(showSavings));
+  tabBtnPension.setAttribute('aria-selected', String(!showSavings));
+}
+
+tabBtnSavings.addEventListener('click', () => showTab('savings'));
+tabBtnPension.addEventListener('click', () => showTab('pension'));
+
+// --- Pension calculator ---
+
+const pensionForm = document.getElementById('pension-form');
+const pensionResults = document.getElementById('pension-results');
+let lastPensionAnnual = 0;
+
+function projectPension(inputs) {
+  const { yearsOfService, finalAvgSalary, accrualRate, pensionRetireAge, normalRetireAge, earlyReduction } = inputs;
+
+  const grossAnnual = yearsOfService * accrualRate * finalAvgSalary;
+  const yearsEarly = Math.max(0, normalRetireAge - pensionRetireAge);
+  const reductionFraction = Math.min(1, yearsEarly * earlyReduction);
+  const annualPension = grossAnnual * (1 - reductionFraction);
+
+  return {
+    annualPension,
+    monthlyPension: annualPension / 12,
+    reductionPercent: reductionFraction * 100,
+    replacementRatio: finalAvgSalary > 0 ? (annualPension / finalAvgSalary) * 100 : 0,
+  };
+}
+
+pensionForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const inputs = {
+    yearsOfService: Number(document.getElementById('yearsOfService').value),
+    finalAvgSalary: Number(document.getElementById('finalAvgSalary').value),
+    accrualRate: Number(document.getElementById('accrualRate').value) / 100,
+    pensionRetireAge: Number(document.getElementById('pensionRetireAge').value),
+    normalRetireAge: Number(document.getElementById('normalRetireAge').value),
+    earlyReduction: Number(document.getElementById('earlyReduction').value) / 100,
+  };
+
+  const result = projectPension(inputs);
+  lastPensionAnnual = result.annualPension;
+
+  document.getElementById('pensionAnnual').textContent = fmtMoney(result.annualPension);
+  document.getElementById('pensionMonthly').textContent = fmtMoney(result.monthlyPension);
+  document.getElementById('pensionReduction').textContent = `${result.reductionPercent.toFixed(1)}%`;
+  document.getElementById('pensionReplacement').textContent = `${result.replacementRatio.toFixed(1)}%`;
+
+  pensionResults.classList.remove('hidden');
+});
+
+document.getElementById('usePensionBtn').addEventListener('click', () => {
+  document.getElementById('otherIncome').value = Math.round(lastPensionAnnual);
+  showTab('savings');
+});
